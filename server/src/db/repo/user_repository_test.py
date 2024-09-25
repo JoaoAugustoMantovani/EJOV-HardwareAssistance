@@ -12,9 +12,7 @@ user_repository = UserRepository()
 roles = ['admin', 'user', 'support']
 
 def test_insert_user():
-    """ Should insert user """
-    
-    
+    """ Should insert user """ 
     
     name = faker.name()
     password = faker.word()
@@ -27,14 +25,19 @@ def test_insert_user():
     with engine.connect() as connection:
         query = text("SELECT * FROM users WHERE id=:id")
         query_user = connection.execute(query, {"id": new_user.id}).fetchone()
-    
+
+    print("\n",new_user)    
+    print(query_user)
     
     assert new_user.id == query_user.id
     assert new_user.name == query_user.name
     assert new_user.password == query_user.password
     assert new_user.role == Roles[query_user.role]
     
-    # Insert later a query to delete de data wrote on DB
+    with engine.connect() as connection:
+        query = text("DELETE FROM users where id=:id")
+        query_user = connection.execute(query, {"id": new_user.id})
+        connection.commit()
     
 def test_select_user():
     """ Should select a user in Users table and compare it """
@@ -48,7 +51,7 @@ def test_select_user():
     engine = db_connection_handler.get_engine()
     with engine.connect() as connection:
         query = text("INSERT INTO users (id, name, password, role) VALUES (:id, :name, :password, :role);")
-        query_user = connection.execute(query, {"id": user_id, "name": name, "password": password, "role": role})
+        query_user = connection.execute(query, {"id": user_id,"name": name, "password": password, "role": role})
         connection.commit()
     
     query_user1 = user_repository.select_user(user_id=user_id)
@@ -59,4 +62,9 @@ def test_select_user():
     assert data in query_user2
     assert data in query_user3
     
-    # Insert later a query to delete de data wrote on DB
+    with engine.connect() as connection:
+        query = text("DELETE FROM users where id=:id")
+        query_user = connection.execute(query, {"id": user_id})
+        connection.commit()
+    
+   
