@@ -1,22 +1,22 @@
+/* src/pages/login.css */
 .login-form {
   width: 100%;
   max-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 0 auto; /* Alinha o formulário ao centro */
 }
 
 .logo-ejov img {
   display: block;
-  margin: 0 auto;
-  width: 180px;
-  height: 180px;
-  padding: 50px;
+  margin: 0 auto 20px; /* Centraliza a imagem e ajusta a margem */
+  width: 200px;
+  height: 200px;
 }
 
 .login-form label {
   color: #fff;
-  margin-bottom: 3px;
   font-size: 18px;
 }
 
@@ -25,27 +25,7 @@
   border: none;
   border-radius: 5px;
   background-color: #eee;
-  flex-grow: 1;
-}
-
-.password-input-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.password-input-container button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  color: #888;
-}
-
-.password-input-container button:hover {
-  color: #5751c9;
+  margin-top: 5px; /* Adiciona espaço entre o label e o input */
 }
 
 .login-links {
@@ -65,7 +45,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px; /* Ajusta o espaço entre os elementos */
   font-size: 22px;
 }
 
@@ -76,29 +56,10 @@
 .login-form p {
   color: #fff;
   font-size: 16px;
+  padding-top: 20px; /* Ajusta o espaço superior */
 }
 
 .login-form a {
   color: #6c63ff;
   text-decoration: none;
-}
-
-.toggle-password-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-}
-
-.toggle-password-button:hover {
-  color: #5751c9;
-}
-
-.password-input-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }

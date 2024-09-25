@@ -1,0 +1,13 @@
+/* src/pages/AssistanceScreens/components/container/container.css */
+.container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c1c1e; /* Cor de fundo */
+}
+
+.central-placeholder img{
+  width: 260px;
+  height: 26r0px;
+}

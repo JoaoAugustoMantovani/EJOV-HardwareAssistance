@@ -13,14 +13,34 @@ const Register: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert('As senhas não coincidem.');
       return;
     }
-    console.log('Nome:', name, 'Login:', login, 'Senha:', password);
-    navigate('/dashboard');
+
+    try {
+      const response = await fetch('http://127.0.0.1:4000/api/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email: login, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro na solicitação de registro');
+      }
+
+      const data = await response.json();
+      console.log('Usuário registrado:', data);
+
+      // Redireciona para a tela de login após o registro bem-sucedido
+      navigate('/login');
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -34,10 +54,11 @@ const Register: React.FC = () => {
   return (
     <LayoutLogin>
       <form className="register-form" onSubmit={handleRegister}>
-        <div className='logo-ejov'>
-          <img src="src/assets/LogoEJOV.png" alt="LogoEJOV" />
+        <div className='logo-ejov-notext'>
+          <img src="src/assets/LogoEJOV-notext.png" alt="LogoEJOV" />
         </div>
-        <label htmlFor="name">Nome:</label>
+        <h2>CADASTRAR CONTA</h2>
+        <label htmlFor="name">NOME/SOBRENOME:</label>
         <input
           type="text"
           id="name"
@@ -45,7 +66,7 @@ const Register: React.FC = () => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label htmlFor="login">Login:</label>
+        <label htmlFor="e-mail">E-MAIL:</label>
         <input
           type="text"
           id="login"
@@ -53,7 +74,7 @@ const Register: React.FC = () => {
           onChange={(e) => setLogin(e.target.value)}
           required
         />
-        <label htmlFor="password">Senha:</label>
+        <label htmlFor="password-rg">SENHA:</label>
         <div className="password-input-container">
           <input
             type={showPassword ? 'text' : 'password'}
@@ -72,7 +93,7 @@ const Register: React.FC = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        <label htmlFor="confirm-password">Confirmar Senha:</label>
+        <label htmlFor="confirm-password-rg">CONFIRMAR SENHA:</label>
         <div className="password-input-container">
           <input
             type={showConfirmPassword ? 'text' : 'password'}
@@ -91,10 +112,7 @@ const Register: React.FC = () => {
             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        <button type="submit" className="register-button">Cadastrar</button>
-        <p>
-          Já possui uma conta? <a href="/login">Fazer login</a>
-        </p>
+        <button type="submit" className="register-button">CADASTRAR</button>
       </form>
     </LayoutLogin>
   );

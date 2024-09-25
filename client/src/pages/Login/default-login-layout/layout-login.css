@@ -12,6 +12,8 @@
   padding: 20px;
   background-color: #1A1A1E;
   flex: 1;
+  height: 96Vh;
+  margin: 0;
 }
 
 .image-section {
@@ -21,6 +23,7 @@
   background-color: #29292E;
   flex: 1;
   padding: 14%;
+
 }
 
 .image-placeholder img {

@@ -1,22 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import LayoutLogin from '../default-login-layout/layout-login';
 import './login.css';
 
 const Login: React.FC = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log('Login:', login, 'Password:', password);
-    navigate('/dashboard');
-  };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('http://127.0.0.1:4000/api/user/login', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: login, password })
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro na solicitação de login');
+      }
+
+      const data = await response.json();
+
+      if (data.message === 'Login successful') {
+        console.log('Login bem-sucedido:', data.user);
+        navigate('/home');
+      } else {
+        console.error('Erro de login:', data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -25,7 +43,7 @@ const Login: React.FC = () => {
         <div className='logo-ejov'>
           <img src="src/assets/LogoEJOV.png" alt="LogoEJOV" />
         </div>
-        <label htmlFor="login">Login:</label>
+        <label htmlFor="login">LOGIN:</label>
         <input
           type="text"
           id="login"
@@ -33,29 +51,18 @@ const Login: React.FC = () => {
           onChange={(e) => setLogin(e.target.value)}
           required
         />
-        <label htmlFor="password">Senha:</label>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ marginRight: '8px' }}
-          />
-          <button 
-            type="button"
-            onClick={togglePasswordVisibility}
-            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-            aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
-        </div>
+        <label htmlFor="password">SENHA:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <div className="login-links">
-          <a href="/forgot-password">Esqueceu a senha?</a>
+          <a href="/fp">Esqueceu a senha?</a>
         </div>
-        <button type="submit" className="login-button">Entrar</button>
+        <button type="submit" className="login-button">ENTRAR</button>
         <p>
           Não possui uma conta? <a href="/register">Cadastrar conta</a>
         </p>
