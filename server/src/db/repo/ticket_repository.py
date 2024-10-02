@@ -1,3 +1,4 @@
+from typing import List
 from src.domain.models import Tickets
 from src.db.config import DBConnectionHandler
 from src.db.entities import Tickets as TicketsModel
@@ -40,3 +41,48 @@ class TicketRepository:
                 db_connection.session.close()
                 
         return None
+    
+    def select_ticket (cls, id: int = None,  title: str = None, description: str = None, status:str = None,customer_id: int = None, pc_id: int = None) -> List[Tickets]:
+        """
+        Select data in TicketsEntity entity by ticket_id and/or user_id
+        :param - ticket_id: ticket id registered
+               - user_id: customer id registered
+        :return - List with tickets selected     
+        """
+        with DBConnectionHandler() as db_connection:
+            try:
+                
+                query_data = None
+                
+                if id and not customer_id:
+                
+                    with DBConnectionHandler() as db_connection:
+                        data = db_connection.session.query(TicketsModel).filter_by(id=id).one()
+                        query_data = [data]
+                        
+                elif not id and customer_id:
+                    
+                    with DBConnectionHandler() as db_connection:
+                        data = db_connection.session.query(TicketsModel).filter_by(customer_id=customer_id).all()
+                        query_data = data
+                
+                elif id and customer_id:
+                    
+                    with DBConnectionHandler() as db_connection:
+                        data = db_connection.session.query(TicketsModel).filter_by(id=id, customer_id=customer_id).one()
+                        query_data = [data]
+                
+                return query_data
+            
+            except:
+                db_connection.session.rollback()
+                raise
+            finally:
+                db_connection.session.close()
+            
+            return None
+            
+        
+        
+            
+      
