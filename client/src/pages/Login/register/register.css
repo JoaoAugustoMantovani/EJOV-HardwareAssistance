@@ -1,104 +1,95 @@
+/* src/pages/register.css */
 .register-form {
-    width: 100%;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .logo-ejov img {
-    display: block;
-    margin: 0 auto;
-    width: 180px;
-    height: 180px;
-    padding: 50px;
-  }
-  
-  .register-form label {
-    color: #fff;
-    margin-bottom: 3px;
-    font-size: 18px;
-  }
-  
-  .register-form input {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #eee;
-    flex-grow: 1;
-  }
-  
-  .password-input-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .password-input-container button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    color: #888;
-  }
-  
-  .password-input-container button:hover {
-    color: #5751c9;
-  }
-  
-  .register-links {
-    text-align: right;
-    margin-top: 5px;
-  }
-  
-  .register-links a {
-    color: #888;
-    text-decoration: none;
-  }
-  
-  .register-button {
-    padding: 15px;
-    background-color: #8686FC;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 22px;
-  }
-  
-  .register-button:hover {
-    background-color: #5751c9;
-  }
-  
-  .register-form p {
-    color: #fff;
-    font-size: 16px;
-  }
-  
-  .register-form a {
-    color: #6c63ff;
-    text-decoration: none;
-  }
-  
-  .toggle-password-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-  }
-  
-  .toggle-password-button:hover {
-    color: #5751c9;
-  }
-  
-  .password-input-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }   
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto; /* Alinha o formulário ao centro */
+}
+
+.logo-ejov-notext img {
+  display: block;
+  margin: 0 auto 20px; /* Centraliza a imagem e ajusta a margem */
+  width: 120px;
+  height: 120px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 26px;
+  color: white;
+  margin-bottom: 20px; /* Reduz o espaçamento para melhor alinhamento */
+}
+
+.register-form label {
+  color: #fff;
+  font-size: 18px;
+}
+
+.register-form input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #eee;
+  margin-top: 5px; /* Adiciona espaço entre o label e o input */
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-input-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #888;
+}
+
+.password-input-container button:hover {
+  color: #5751c9;
+}
+
+.register-button {
+  padding: 15px;
+  background-color: #8686FC;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Ajusta o espaço entre os elementos */
+  font-size: 22px;
+}
+
+.register-button:hover {
+  background-color: #5751c9;
+}
+
+.register-form p {
+  color: #fff;
+  font-size: 16px;
+}
+
+.register-form a {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.toggle-password-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.toggle-password-button:hover {
+  color: #5751c9;
+}
