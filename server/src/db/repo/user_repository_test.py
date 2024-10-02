@@ -26,13 +26,15 @@ def test_insert_user():
         query = text("SELECT * FROM users WHERE id=:id")
         query_user = connection.execute(query, {"id": new_user.id}).fetchone()
 
-    print("\n",new_user)    
+    print("\n\n",new_user)    
     print(query_user)
     
     assert new_user.id == query_user.id
     assert new_user.name == query_user.name
     assert new_user.password == query_user.password
     assert new_user.role == Roles[query_user.role]
+    
+    #DB Clean
     
     with engine.connect() as connection:
         query = text("DELETE FROM users where id=:id")
@@ -61,6 +63,8 @@ def test_select_user():
     assert data in query_user1
     assert data in query_user2
     assert data in query_user3
+    
+    #DB Clean
     
     with engine.connect() as connection:
         query = text("DELETE FROM users where id=:id")

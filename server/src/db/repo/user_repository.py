@@ -25,7 +25,13 @@ class UserRepository:
                 db_connection.session.add(new_user)
                 db_connection.session.commit()
                 
-                return Users(id=new_user.id, name=new_user.name, password=new_user.password, role=new_user.role)
+                return Users(
+                    id=new_user.id,
+                    name=new_user.name,
+                    password=new_user.password,
+                    role=new_user.role
+                    )
+                
             except:
                 db_connection.session.rollback()
                 raise
