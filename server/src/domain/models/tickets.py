@@ -1,3 +1,3 @@
 from collections import namedtuple
 
-Tickets = namedtuple("Tickets", "id title description status pc_id customer_id")
+Tickets = namedtuple("Tickets", "id title description pc_description status customer_id")

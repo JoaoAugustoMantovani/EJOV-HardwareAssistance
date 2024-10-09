@@ -22,9 +22,9 @@ class Tickets(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     description = Column(String)
+    pc_description = Colum(String, nullable=True)
     status = Column(Enum(Status), nullable=False)
     customer_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    pc_id = Column(Integer, ForeignKey("computers.id"), nullable=False)
     creation_date = Column(DateTime, default=get_utc_now)
     #After birthdate insertion on register page, modify the 'nullable=True' to 'nullable=False'
 

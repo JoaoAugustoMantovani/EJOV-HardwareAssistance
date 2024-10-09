@@ -18,17 +18,15 @@ def test_insert_ticket():
     #Mocks
     mock_customer = MagicMock()
     mock_customer.id = faker.random_number(digits=4)
-
-    mock_computer = MagicMock()
-    mock_computer.id = faker.random_number(digits=4)
     
     #Ticket data
     ticket_id = faker.random_number(digits=4)  
     title = faker.text(max_nb_chars=30)
     description = faker.text(max_nb_chars=180)
+    pc_description = faker.text(max_nb_chars=180)
     status = 'active'  
     customer_id = mock_customer.id
-    pc_id = mock_computer.id
+    
     
     
     
@@ -72,27 +70,24 @@ def test_select_ticket():
    #Mocks
     mock_customer = MagicMock()
     mock_customer.id = faker.random_number(digits=4)
-
-    mock_computer = MagicMock()
-    mock_computer.id = faker.random_number(digits=4)
     
     #Ticket data
     id = faker.random_number(digits=4)  
     title = faker.text(max_nb_chars=30)
     description = faker.text(max_nb_chars=180)
+    pc_description = faker.text(max_nb_chars=180)
     status = "active"  
     customer_id = mock_customer.id
-    pc_id = mock_computer.id
     
     status_mock = Status("active")
-    data = Tickets(id=id, title=title, description=description, status=status_mock, pc_id=pc_id, customer_id=customer_id)
+    data = Tickets(id=id, title=title, description=description, status=status_mock, pc_description=pc_description, customer_id=customer_id)
     
     #SQL Commands
     
     engine = db_connection_handler.get_engine()
     with engine.connect() as connection:
-        query = text("INSERT INTO tickets (id, title, description, status, pc_id, customer_id) VALUES (:id, :title, :description, :status, :pc_id, :customer_id)")
-        query_ticket = connection.execute(query, {"id": id,"title": title, "description": description, "status": status, "pc_id": pc_id, "customer_id": customer_id})
+        query = text("INSERT INTO tickets (id, title, description, pc_description, status, customer_id) VALUES (:id, :title, :description, :pc_description, :status, :customer_id)")
+        query_ticket = connection.execute(query, {"id": id,"title": title, "description": description, "pc_description": pc_description, "status": status, "customer_id": customer_id})
         connection.commit()
         
         query_select = text("SELECT * FROM tickets WHERE id=:id")
@@ -101,15 +96,15 @@ def test_select_ticket():
     query_tickets1 = ticket_repository.select_ticket(id=id)
     query_tickets2 = ticket_repository.select_ticket(title=title) 
     query_tickets3 = ticket_repository.select_ticket(description=description)
-    query_tickets4 = ticket_repository.select_ticket(status=status) 
-    query_tickets5 = ticket_repository.select_ticket(pc_id=pc_id) 
+    query_tickets4 = ticket_repository.select_ticket(pc_description=pc_description) 
+    query_tickets5 = ticket_repository.select_ticket(status=status) 
     query_tickets6 = ticket_repository.select_ticket(customer_id=customer_id)      
     
     assert data.id == query_tickets1[0].id
     assert data.title == query_tickets1[0].title
     assert data.description == query_tickets1[0].description
+    assert data.pc_description == query_tickets1[0].pc_description
     assert data.status == query_tickets1[0].status
-    assert data.pc_id == query_tickets1[0].pc_id
     assert data.customer_id == query_tickets1[0].customer_id
     
     with engine.connect() as connection:

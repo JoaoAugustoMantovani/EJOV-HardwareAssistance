@@ -8,7 +8,7 @@ class TicketRepository:
     """ Class to manage Ticket Repository"""
     
     @classmethod
-    def insert_ticket(cls, id: int, title: str, description: str, status: str, pc_id: int, customer_id: int) -> Tickets:
+    def insert_ticket(cls, id: int, title: str, description: str, status: str, pc_description: str, customer_id: int) -> Tickets:
         """ 
         Insert data in TicketsEntity entity
         :param - title: a ticket brief
@@ -29,8 +29,8 @@ class TicketRepository:
                     id=new_ticket.id,
                     title=new_ticket.title,
                     description=new_ticket.description,
+                    pc_description=new_ticket.pc_description,
                     status=new_ticket.status,
-                    pc_id=new_ticket.pc_id,
                     customer_id=new_ticket.customer_id
                     )
                 
@@ -42,7 +42,7 @@ class TicketRepository:
                 
         return None
     
-    def select_ticket (cls, id: int = None,  title: str = None, description: str = None, status:str = None,customer_id: int = None, pc_id: int = None) -> List[Tickets]:
+    def select_ticket (cls, id: int = None,  title: str = None, description: str = None, status:str = None,customer_id: int = None, pc_description: str = None) -> List[Tickets]:
         """
         Select data in TicketsEntity entity by ticket_id and/or user_id
         :param - ticket_id: ticket id registered
